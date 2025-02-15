@@ -7,4 +7,5 @@ document.getElementById("reset").addEventListener("click", function() {
         periodInMinutes: period
     });
     alert("Break timer reset!");
+    window.close(); // Close the popup after setting the alarm
 });
