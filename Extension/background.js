@@ -3,7 +3,6 @@ chrome.alarms.create("breakReminder", {
     delayInMinutes: 30,
     periodInMinutes: 5
   });
-  
   chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name === "breakReminder") {
       chrome.notifications.create({
@@ -15,12 +14,12 @@ chrome.alarms.create("breakReminder", {
     }
   });
 
-// Stopwatch - Display elapsed time
 
+// Stopwatch - Display elapsed time
   let startTime = Date.now();
   let isRunning = true;
 
-  // load saved time from storage
+  // Loads saved time from storage
   chrome.storage.local.get(["startTime", "isRunning"], (result) => {
     if (result.startTime) {
       startTime = result.startTime;
