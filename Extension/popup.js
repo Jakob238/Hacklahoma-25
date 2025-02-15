@@ -59,6 +59,9 @@ function updateElapsedTime() {
             const feedback = elapsedTime > lastSession ? "You have spent more time this session." : "You have spent less time this session.";
             document.getElementById("feedback").textContent = feedback;
         }
+
+        // Update the chart
+        updateChart(elapsedTime, previousSessions);
     });
 }
 
@@ -67,18 +70,8 @@ setInterval(updateElapsedTime, 1000);
 
 // Reset the timer
 document.getElementById("resetButton").addEventListener("click", () => {
-    chrome.storage.local.get(["elapsedTime", "previousSessions"], (result) => {
-        const elapsedTime = result.elapsedTime || 0;
-        const previousSessions = result.previousSessions || [];
-        previousSessions.push(elapsedTime);
-
-        chrome.storage.local.set({
-            elapsedTime: 0,
-            previousSessions: previousSessions
-        }, () => {
-            document.getElementById("elapsedTime").textContent = 0;
-            document.getElementById("feedback").textContent = "";
-        });
+    chrome.runtime.sendMessage({ action: "resetTimer" }, (response) => {
+        console.log(response.status);
     });
 });
 
@@ -106,3 +99,43 @@ document.getElementById("showActivityTracker").addEventListener("click", () => {
     document.getElementById("breakTimer").classList.add("hidden");
     document.getElementById("activityTracker").classList.remove("hidden");
 });
+
+// Initialize the chart
+let sessionChart;
+function initializeChart() {
+    const ctx = document.getElementById('sessionChart').getContext('2d');
+    sessionChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Session Time (seconds)',
+                data: [],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// Update the chart with new data
+function updateChart(currentSession, previousSessions) {
+    const labels = previousSessions.map((_, index) => `Session ${index + 1}`);
+    labels.push('Current Session');
+    const data = [...previousSessions, currentSession];
+
+    sessionChart.data.labels = labels;
+    sessionChart.data.datasets[0].data = data;
+    sessionChart.update();
+}
+
+// Initialize the chart when the document is loaded
+document.addEventListener('DOMContentLoaded', initializeChart);
