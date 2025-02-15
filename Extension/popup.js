@@ -16,9 +16,10 @@ document.getElementById("reset").addEventListener("click", function() {
         periodInMinutes: period
     });
     alert("Break timer reset!");
-    window.close(); // Close the popup window
+    window.close(); // Close the popup window 
 });
 
+// Timer for Alarm
 function formatTime(ms) {
     const totalSeconds = Math.floor(ms / 1000);
     const hours = Math.floor(totalSeconds / 3600);
@@ -44,10 +45,18 @@ function updateRemainingTime() {
 
 document.addEventListener('DOMContentLoaded', function() {
     updateRemainingTime();
-    setInterval(updateRemainingTime, 5000); // Update every 5 seconds
+
+    setInterval(updateRemainingTime, 1000); // Update every 5 seconds
 });
 
 // Display elapsed time
+function updateElapsedTime() {
+    setInterval(updateRemainingTime, 1000); // Update every 1 seconds
+};
+
+
+// Stopwatch - Display elapsed time 
+
 function updateElapsedTime() {
     chrome.storage.local.get(["elapsedTime"], (result) => {
         const elapsedTime = result.elapsedTime || 0;

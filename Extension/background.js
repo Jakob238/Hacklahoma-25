@@ -1,8 +1,8 @@
+// Alarm
 chrome.alarms.create("breakReminder", {
     delayInMinutes: 30,
     periodInMinutes: 5
   });
-  
   chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name === "breakReminder") {
       chrome.notifications.create({
@@ -14,12 +14,12 @@ chrome.alarms.create("breakReminder", {
     }
   });
 
-  // below code added
 
+// Stopwatch - Display elapsed time
   let startTime = Date.now();
   let isRunning = true;
 
-  // load saved time from storage
+  // Loads saved time from storage
   chrome.storage.local.get(["startTime", "isRunning"], (result) => {
     if (result.startTime) {
       startTime = result.startTime;
@@ -29,7 +29,7 @@ chrome.alarms.create("breakReminder", {
     }
   });
 
-  // updating timer every second
+  // This updates timer the every second
   setInterval(() => {
     if(isRunning) {
       const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
