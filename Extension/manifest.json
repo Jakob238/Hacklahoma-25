@@ -3,6 +3,7 @@
     "name": "TechTrack",
     "version": "1.0",
     "description": "Creates reminders to take breaks while browsing.",
+    "author": ["Jakob Linenberger", "Thuan Nguyen", "Cambren Williams"], 
     "permissions": ["storage", "alarms", "notifications"],
     "background": {
       "service_worker": "background.js"
