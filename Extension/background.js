@@ -1,4 +1,4 @@
-// Alarm
+// Alarm test
 chrome.alarms.create("breakReminder", { // Creates an alarm named "breakReminder"
     delayInMinutes: 30,
     periodInMinutes: 5
