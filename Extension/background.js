@@ -1,3 +1,4 @@
+// Alarm
 chrome.alarms.create("breakReminder", {
     delayInMinutes: 30,
     periodInMinutes: 5
@@ -14,7 +15,7 @@ chrome.alarms.create("breakReminder", {
     }
   });
 
-  // below code added
+// Stopwatch - Display elapsed time
 
   let startTime = Date.now();
   let isRunning = true;
@@ -29,7 +30,7 @@ chrome.alarms.create("breakReminder", {
     }
   });
 
-  // updating timer every second
+  // This updates timer the every second
   setInterval(() => {
     if(isRunning) {
       const elapsedTime = Math.floor((Date.now() - startTime) / 1000);

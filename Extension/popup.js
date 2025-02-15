@@ -19,6 +19,7 @@ document.getElementById("reset").addEventListener("click", function() {
     window.close(); // Close the popup window
 });
 
+// Timer for Alarm
 function formatTime(ms) {
     const totalSeconds = Math.floor(ms / 1000);
     const hours = Math.floor(totalSeconds / 3600);
@@ -44,11 +45,11 @@ function updateRemainingTime() {
 
 document.addEventListener('DOMContentLoaded', function() {
     updateRemainingTime();
-    setInterval(updateRemainingTime, 1000); // Update every 5 seconds
+    setInterval(updateRemainingTime, 1000); // Update every 1 seconds
 });
 
 
-// Display elapsed time
+// Stopwatch - Display elapsed time 
 function updateElapsedTime() {
     chrome.storage.local.get(["elapsedTime"], (result) => {
       const elapsedTime = result.elapsedTime || 0;
