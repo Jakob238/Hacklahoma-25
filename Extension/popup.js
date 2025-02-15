@@ -56,7 +56,6 @@ function updateElapsedTime() {
 
 
 // Stopwatch - Display elapsed time 
-
 function updateElapsedTime() {
     chrome.storage.local.get(["elapsedTime"], (result) => {
         const elapsedTime = result.elapsedTime || 0;
