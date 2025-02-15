@@ -44,38 +44,48 @@ function updateRemainingTime() {
 
 document.addEventListener('DOMContentLoaded', function() {
     updateRemainingTime();
-    setInterval(updateRemainingTime, 1000); // Update every 5 seconds
+    setInterval(updateRemainingTime, 5000); // Update every 5 seconds
 });
-
 
 // Display elapsed time
 function updateElapsedTime() {
     chrome.storage.local.get(["elapsedTime"], (result) => {
-      const elapsedTime = result.elapsedTime || 0;
-      document.getElementById("elapsedTime").textContent = elapsedTime;
+        const elapsedTime = result.elapsedTime || 0;
+        document.getElementById("elapsedTime").textContent = elapsedTime;
     });
-  }
-  
-  // Update the timer every second
-  setInterval(updateElapsedTime, 1000);
-  
-  // Reset the timer
-  document.getElementById("resetButton").addEventListener("click", () => {
+}
+
+// Update the timer every second
+setInterval(updateElapsedTime, 1000);
+
+// Reset the timer
+document.getElementById("resetButton").addEventListener("click", () => {
     chrome.runtime.sendMessage({ action: "resetTimer" }, (response) => {
-      console.log(response.status);
+        console.log(response.status);
     });
-  });
-  
-  // Pause the timer
-  document.getElementById("pauseButton").addEventListener("click", () => {
+});
+
+// Pause the timer
+document.getElementById("pauseButton").addEventListener("click", () => {
     chrome.runtime.sendMessage({ action: "pauseTimer" }, (response) => {
-      console.log(response.status);
+        console.log(response.status);
     });
-  });
-  
-  // Resume the timer
-  document.getElementById("resumeButton").addEventListener("click", () => {
+});
+
+// Resume the timer
+document.getElementById("resumeButton").addEventListener("click", () => {
     chrome.runtime.sendMessage({ action: "resumeTimer" }, (response) => {
-      console.log(response.status);
+        console.log(response.status);
     });
-  });
+});
+
+// Switch between views
+document.getElementById("showBreakTimer").addEventListener("click", () => {
+    document.getElementById("breakTimer").classList.remove("hidden");
+    document.getElementById("activityTracker").classList.add("hidden");
+});
+
+document.getElementById("showActivityTracker").addEventListener("click", () => {
+    document.getElementById("breakTimer").classList.add("hidden");
+    document.getElementById("activityTracker").classList.remove("hidden");
+});

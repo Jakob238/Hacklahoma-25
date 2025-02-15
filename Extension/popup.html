@@ -44,30 +44,44 @@
         button:hover {
             background-color: #0056b3;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <h2>Break Reminder</h2>
-    <p>Stay healthy! Take a break regularly.</p>
-    <div id="timeLeft">No active timer</div>
-    <br>
-    <label for="toggle">Enable Reminders:</label>
-    <input type="checkbox" id="toggle">
-    <br>
-    <label for="delay">Initial time until alarm (minutes):</label>
-    <input type="number" id="delay" value="5">
-    <br>
-    <label for="period">Secondary alarms (minutes):</label>
-    <input type="number" id="period" value="2">
-    <br>
-    <button id="reset">Reset Break Timer</button>
-    <script src="popup.js"></script>
-
+    <button id="showBreakTimer">Break Timer</button>
+    <button id="showActivityTracker">Activity Tracker</button>
     
-    <h1>Activity Timer</h1>
-    <p>Elapsed Time: <span id="elapsedTime">0</span> seconds</p>
-    <button id="resetButton">Reset Timer</button>
-    <button id="pauseButton">Pause Timer</button>
-    <button id="resumeButton">Resume Timer</button>
+    <div id="breakTimer">
+        <h1>Break Reminder</h1>
+        <p>Stay healthy! Take a break regularly.</p>
+        <div id="timeLeft">No active timer</div>
+        <br>
+        <label for="toggle">Enable Reminders:</label>
+        <input type="checkbox" id="toggle">
+        <br>
+        <label for="delay">Initial time until alarm (minutes):</label>
+        <input type="number" id="delay" value="5">
+        <br>
+        <label for="period">Secondary alarms (minutes):</label>
+        <input type="number" id="period" value="2">
+        <br>
+        <button id="reset">Reset Break Timer</button>
+    </div>
+
+    <div id="activityTracker" class="hidden">
+        <h1>Activity Timer</h1>
+        <p>Elapsed Time: <span id="elapsedTime">0</span> seconds</p>
+        <button id="resetButton">Reset Timer</button>
+        <br>
+        <br>
+        <button id="pauseButton">Pause Timer</button>
+        <br>
+        <br>
+        <button id="resumeButton">Resume Timer</button>
+    </div>
+
+    <script src="popup.js"></script>
 </body>
 </html>
