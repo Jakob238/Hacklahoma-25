@@ -7,7 +7,7 @@ chrome.alarms.create("breakReminder", {
     if (alarm.name === "breakReminder") {
       chrome.notifications.create({
         type: "basic",
-        iconUrl: "icon.png",
+        iconUrl: "icon128.png",
         title: "Time for a Break!",
         message: "Take a short break to rest your eyes and stretch!"
       });
