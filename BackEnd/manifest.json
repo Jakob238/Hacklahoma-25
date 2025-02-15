@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Break Reminder",
+    "name": "TechTrack",
     "version": "1.0",
-    "description": "Reminds you to take breaks while browsing.",
+    "description": "Creates reminders to take breaks while browsing.",
     "permissions": ["storage", "alarms", "notifications"],
     "background": {
       "service_worker": "background.js"
