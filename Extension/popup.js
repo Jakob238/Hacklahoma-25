@@ -16,10 +16,9 @@ document.getElementById("reset").addEventListener("click", function() {
         periodInMinutes: period
     });
     alert("Break timer reset!");
-    window.close(); // Close the popup window 
+    window.close(); // Close the popup window
 });
 
-// Timer for Alarm
 function formatTime(ms) {
     const totalSeconds = Math.floor(ms / 1000);
     const hours = Math.floor(totalSeconds / 3600);
@@ -45,22 +44,21 @@ function updateRemainingTime() {
 
 document.addEventListener('DOMContentLoaded', function() {
     updateRemainingTime();
-
-    setInterval(updateRemainingTime, 1000); // Update every 5 seconds
+    setInterval(updateRemainingTime, 1000); // Update every second
 });
 
 // Display elapsed time
 function updateElapsedTime() {
-    setInterval(updateRemainingTime, 1000); // Update every 1 seconds
-};
-
-
-// Stopwatch - Display elapsed time 
-
-function updateElapsedTime() {
-    chrome.storage.local.get(["elapsedTime"], (result) => {
+    chrome.storage.local.get(["elapsedTime", "previousSessions"], (result) => {
         const elapsedTime = result.elapsedTime || 0;
         document.getElementById("elapsedTime").textContent = elapsedTime;
+
+        const previousSessions = result.previousSessions || [];
+        if (previousSessions.length > 0) {
+            const lastSession = previousSessions[previousSessions.length - 1];
+            const feedback = elapsedTime > lastSession ? "You have spent more time this session." : "You have spent less time this session.";
+            document.getElementById("feedback").textContent = feedback;
+        }
     });
 }
 
@@ -69,8 +67,18 @@ setInterval(updateElapsedTime, 1000);
 
 // Reset the timer
 document.getElementById("resetButton").addEventListener("click", () => {
-    chrome.runtime.sendMessage({ action: "resetTimer" }, (response) => {
-        console.log(response.status);
+    chrome.storage.local.get(["elapsedTime", "previousSessions"], (result) => {
+        const elapsedTime = result.elapsedTime || 0;
+        const previousSessions = result.previousSessions || [];
+        previousSessions.push(elapsedTime);
+
+        chrome.storage.local.set({
+            elapsedTime: 0,
+            previousSessions: previousSessions
+        }, () => {
+            document.getElementById("elapsedTime").textContent = 0;
+            document.getElementById("feedback").textContent = "";
+        });
     });
 });
 
