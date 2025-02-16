@@ -20,7 +20,7 @@ let elapsedTimeAtPause = 0; // Tracks the elapsed time at the point of pause
 let isRunning = true; // Tracks if the timer is running
 
 // Loads saved time from storage
-chrome.storage.local.get(["startTime", "isRunning", "elapsedTimeAtPause"], (result) => {
+chrome.storage.local.get(["startTime", "isRunning", "elapsedTimeAtPause", "elapsedTime", "previousSessions"], (result) => {
     if (result.startTime) { // If there is a saved start time, use it
         startTime = result.startTime;
     }
@@ -30,6 +30,18 @@ chrome.storage.local.get(["startTime", "isRunning", "elapsedTimeAtPause"], (resu
     if (result.elapsedTimeAtPause !== undefined) { // If there is a saved elapsed time at pause, use it
         elapsedTimeAtPause = result.elapsedTimeAtPause;
     }
+    if (result.elapsedTime !== undefined && result.elapsedTime > 0) {
+        let previousSessions = result.previousSessions || [];
+        previousSessions.push(result.elapsedTime);
+        if (previousSessions.length > 5) {
+            previousSessions = previousSessions.slice(-5); // Keep only the last 5 sessions
+        }
+        chrome.storage.local.set({ previousSessions, elapsedTime: 0 });
+    }
+    startTime = Date.now();
+    elapsedTimeAtPause = 0;
+    isRunning = true;
+    chrome.storage.local.set({ startTime, isRunning, elapsedTimeAtPause });
 });
 
 // This updates timer every second
@@ -55,8 +67,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             startTime = Date.now();
             elapsedTimeAtPause = 0;
             isRunning = true;
-            chrome.storage.local.set({ startTime, isRunning, elapsedTimeAtPause, previousSessions, elapsedTime: 0 });
-            sendResponse({ status: "Timer reset!" });
+            chrome.storage.local.set({ startTime, isRunning, elapsedTimeAtPause, previousSessions, elapsedTime: 0 }, () => {
+                sendResponse({ status: "Timer reset!" });
+            });
         });
     } else if (message.action === "pauseTimer") { // Pauses the timer by setting isRunning to false
         elapsedTimeAtPause += Math.floor((Date.now() - startTime) / 1000); // Saves elapsed time at pause by dividing the difference between the current time and the start time by 1000
@@ -69,4 +82,36 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         chrome.storage.local.set({ isRunning, startTime, elapsedTimeAtPause }); // Saves the start time and isRunning value
         sendResponse({ status: "Timer resumed!" });
     }
+});
+
+// Reset the timer when Chrome is closed or the extension is disabled
+chrome.runtime.onSuspend.addListener(() => {
+    chrome.storage.local.get(["elapsedTime", "previousSessions"], (result) => {
+        const elapsedTime = result.elapsedTime || 0;
+        let previousSessions = result.previousSessions || [];
+        previousSessions.push(elapsedTime);
+        if (previousSessions.length > 5) {
+            previousSessions = previousSessions.slice(-5); // Keep only the last 5 sessions
+        }
+
+        startTime = Date.now();
+        elapsedTimeAtPause = 0;
+        isRunning = true;
+        chrome.storage.local.set({ startTime, isRunning, elapsedTimeAtPause, previousSessions, elapsedTime: 0 });
+    });
+});
+
+// Handle the case where the suspension is canceled
+chrome.runtime.onSuspendCanceled.addListener(() => {
+    chrome.storage.local.get(["startTime", "isRunning", "elapsedTimeAtPause"], (result) => {
+        if (result.startTime) { // If there is a saved start time, use it
+            startTime = result.startTime;
+        }
+        if (result.isRunning !== undefined) { // If there is a saved isRunning value, use it
+            isRunning = result.isRunning;
+        }
+        if (result.elapsedTimeAtPause !== undefined) { // If there is a saved elapsed time at pause, use it
+            elapsedTimeAtPause = result.elapsedTimeAtPause;
+        }
+    });
 });
