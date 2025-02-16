@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>TimeOut</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         body {
             text-align: center;
@@ -14,8 +14,8 @@
             background-position: center;
             background-repeat: no-repeat;
             /*background-color: rgba(180, 255, 130, 0.8);*/
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
         }
         h1 {
             text-align: center;
@@ -51,21 +51,32 @@
         p {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             color:#ffffff;
-            font-size: 40px;
+            font-size: 50px;
             margin-bottom: 20px;
             text-shadow: 
             -1px -1px 0 #000,  
             1px -1px 0 #000,
             -1px  1px 0 #000,
-            1px  1px 0 #000; /* Border effect */
+            1px  1px 0 #000;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 10px 20px;
+            border-radius: 10px;
         }
         p#feedback {
+
             font-size: 1.2em;
             margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 10px 20px;
+            border-radius: 10px;
         }
         p#timeLeft {
             font-size: 3em;
             margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
         }
         label {
             display: block;
@@ -80,17 +91,19 @@
         }
         input {
             width: 80%;
-            padding: 5px;
+            max-width: 400px;
+            padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 8px;
         }
         button {
             padding: 10px 20px;
-            font-size: 1em;
+            font-size: 20px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             color: #fff;
-            background-color: #007bff;
+            /* background-color: rgb(0, 123, 255); */
+            background: rgba(0, 0, 0, 0.1);
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -99,6 +112,14 @@
             1px -1px 0 #000,
             -1px  1px 0 #000,
             1px  1px 0 #000; /* Border effect */
+        }
+        .checkhox-container {
+            display:flex;
+            justify-content: flex-end;
+            align-items:center;
+            margin-top: -10px;
+            padding-right: 10px;
+            gap: 5px;
         }
         table {
             width: 100%;
@@ -110,7 +131,7 @@
         }
         button:hover {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            background-color: #0056b3;
+            background-color: #1a75d6;
             color: #ffffff;
             text-shadow: 
             -1px -1px 0 #000,  
@@ -146,39 +167,49 @@
         }
     </style>
 </head>
+
+
 <body>
     <h1>TimeOut</h1>
     
-    <button id="showBreakTimer">Break Reminder</button>
-    <button id="showActivityTracker">Activity Timer</button>
+    <button id="showBreakTimer">
+        <i class="fas fa-coffee"></i>
+    </button>
+    <button id="showActivityTracker">
+        <i class="fas fa-stopwatch"></i>
+    </button>
 
     <div id="breakTimer">
         <h2>Break Reminder</h2>
 
-        <p id="timeLeft">No active timer</p>
+        <p id="timeLeft">00:00:00</p>
 
         <br>
-        <label for="toggle">Enable Reminders:</label>
-        <input type="checkbox" id="toggle">
-        <br>
         <label for="delay">Initial time until alarm (minutes):</label>
-        <input type="number" id="delay" value="5">
+        <input type="number" id="delay" value="" placeholder="Insert number">
         <br>
         <label for="period">Secondary alarms (minutes):</label>
-        <input type="number" id="period" value="2">
+        <input type="number" id="period" value="" placeholder="Insert number">
         <br>
-        <button id="reset">Reset Break Timer</button>
+        <button id="reset">Reset</button>
     </div>
 
     <div id="activityTracker" class="hidden">
         <h2>Session Timer</h2>
-        <p><span id="elapsedTime">0</span></p>
+        <p><span id="elapsedTime">00:00:00</span></p>
         <p id="feedback"></p>
-        <button id="resetButton">Reset Timer</button>
+        <button id="resetButton">
+            <i class="fas fa-undo"></i> <!-- Undo icon for resetting -->
+        </button>
 
-        <button id="pauseButton">Pause Timer</button>
+        <button id="pauseButton">
+            <i class="fas fa-pause"></i> <!-- Pause icon for activity -->
+        </button>
 
-        <button id="resumeButton">Resume Timer</button>
+        <button id="resumeButton">
+            <i class="fas fa-play"></i> <!-- Play icon for activity -->
+
+        </button>
 
         <table id="sessionTable">
             <thead>

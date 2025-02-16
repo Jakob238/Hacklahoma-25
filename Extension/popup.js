@@ -36,7 +36,7 @@ function updateRemainingTime() {
             if (remainingTime > 0) {
                 document.getElementById('timeLeft').textContent = `${formatTime(remainingTime)}`;
             } else {
-                document.getElementById('timeLeft').textContent = 'No active timer';
+                document.getElementById('timeLeft').textContent = '00:00:00';
             }
         }
     });
