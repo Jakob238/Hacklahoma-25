@@ -18,7 +18,7 @@ document.getElementById("reset").addEventListener("click", function() {
     alert("Break timer reset!");
     window.close(); // Close the popup window
 });
-
+// Formats time for break reminder(from miliseconds to hours, minutes, and seconds)
 function formatTime(ms) {
     const totalSeconds = Math.floor(ms / 1000);
     const hours = Math.floor(totalSeconds / 3600);
@@ -48,14 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeChart(); // Initialize the chart when the document is loaded
 });
 
-// Stopwatch  - Display elapsed time
-function formatTimeFromSeconds(seconds) {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
-    return `${hours}h ${minutes}m ${remainingSeconds}s`;
-}
 
+// Stopwatch  - Display elapsed time
 function updateElapsedTime() {
     chrome.storage.local.get(["elapsedTime", "previousSessions"], (result) => {
         const elapsedTime = result.elapsedTime || 0;
@@ -73,6 +67,14 @@ function updateElapsedTime() {
         // Update the chart
         updateChart(elapsedTime, previousSessions);
     });
+}
+
+//Formats time from seconds to hours, minutes, and seconds
+function formatTimeFromSeconds(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+    return `${hours}h ${minutes}m ${remainingSeconds}s`;
 }
 
 // Update the timer every second
@@ -105,6 +107,7 @@ document.getElementById("showBreakTimer").addEventListener("click", () => {
     document.getElementById("activityTracker").classList.add("hidden");
 });
 
+// Switch between views
 document.getElementById("showActivityTracker").addEventListener("click", () => {
     document.getElementById("breakTimer").classList.add("hidden");
     document.getElementById("activityTracker").classList.remove("hidden");
