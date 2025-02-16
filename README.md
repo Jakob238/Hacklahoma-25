@@ -1,4 +1,4 @@
-# TechTrack
+# TimeOut
 ## Product Manager
 This is a browser extension that manages screentime using a break timer and activity tracker.
 
