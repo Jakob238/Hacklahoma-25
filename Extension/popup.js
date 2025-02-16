@@ -34,7 +34,7 @@ function updateRemainingTime() {
             const elapsedTime = Date.now() - creationTime;
             const remainingTime = (delay * 60 * 1000) - elapsedTime;
             if (remainingTime > 0) {
-                document.getElementById('timeLeft').textContent = `Time left: ${formatTime(remainingTime)}`;
+                document.getElementById('timeLeft').textContent = `${formatTime(remainingTime)}`;
             } else {
                 document.getElementById('timeLeft').textContent = 'No active timer';
             }
@@ -123,8 +123,8 @@ function initializeChart() {
             datasets: [{
                 label: 'Session Time (seconds)',
                 data: [],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgb(255, 255, 255)',
+                borderColor: 'rgb(0, 0, 0)',
                 borderWidth: 1
             }]
         },
