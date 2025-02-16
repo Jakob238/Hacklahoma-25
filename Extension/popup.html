@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TechTrack</title>
+    <title>TimeOut</title>
 
     <style>
         body {
             text-align: center;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             width: 450px;
-            height: 500px;
             padding: 20px;
             background-image: url(https://i.ytimg.com/vi/1Pv1qFsbPL8/maxresdefault.jpg);
             background-size: cover;
@@ -39,22 +38,45 @@
         h2 {
             text-align: center;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            font-size: 1.5em;
+            font-size: 25px;
+            margin-bottom: 10px;
+            color: #ffffff;
+            text-shadow:             
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000; /* Border effect */;
+
+        }
+        p {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color:#ffffff;
+            font-size: 40px;
+            margin-bottom: 20px;
             text-shadow: 
             -1px -1px 0 #000,  
             1px -1px 0 #000,
             -1px  1px 0 #000,
             1px  1px 0 #000; /* Border effect */
-            margin-bottom: 10px;
         }
-        p {
-            font-size: 1em;
+        p#feedback {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        p#timeLeft {
+            font-size: 3em;
             margin-bottom: 20px;
         }
         label {
             display: block;
-            font-size: 0.9em;
+            font-size: 1em;
             margin-bottom: 5px;
+            color: #ffffff;
+            text-shadow: 
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000; /* Border effect */
         }
         input {
             width: 80%;
@@ -66,39 +88,75 @@
         button {
             padding: 10px 20px;
             font-size: 1em;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             color: #fff;
             background-color: #007bff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            text-shadow: 
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000; /* Border effect */
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: ffffff;
+
         }
         button:hover {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             background-color: #0056b3;
+            color: #ffffff;
+            text-shadow: 
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000; /* Border effect */
+
         }
         .hidden {
             display: none;
         }
-        th, td {
-            border: 1px solid #ccc;
+        th {
+            border: 1px solid #ffffff;
             padding: 8px;
             text-align: center;
+            color: #ffffff;
+            text-shadow: 
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000; /* Border effect */
+        }
+        td {
+            border: 1px solid #ffffff;
+            padding: 8px;
+            text-align: center;
+            color: #ffffff;
+            text-shadow: 
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000; /* Border effect */
         }
     </style>
 </head>
 <body>
-    <h1>TechTracker</h1>
+    <h1>TimeOut</h1>
     
-    <button id="showBreakTimer">Break Timer</button>
-    <button id="showActivityTracker">Activity Tracker</button>
+    <button id="showBreakTimer">Break Reminder</button>
+    <button id="showActivityTracker">Activity Timer</button>
 
     <div id="breakTimer">
         <h2>Break Reminder</h2>
-        <div id="timeLeft">No active timer</div>
+
+        <p id="timeLeft">No active timer</p>
+
         <br>
         <label for="toggle">Enable Reminders:</label>
         <input type="checkbox" id="toggle">
@@ -113,8 +171,8 @@
     </div>
 
     <div id="activityTracker" class="hidden">
-        <h2>Activity Timer</h2>
-        <p>Elapsed Time: <span id="elapsedTime">0</span></p>
+        <h2>Session Timer</h2>
+        <p><span id="elapsedTime">0</span></p>
         <p id="feedback"></p>
         <button id="resetButton">Reset Timer</button>
 
@@ -126,7 +184,7 @@
             <thead>
                 <tr>
                     <th>Session</th>
-                    <th>Time (seconds)</th>
+                    <th>Time</th>
                 </tr>
             </thead>
             <tbody>

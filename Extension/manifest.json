@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "TechTrack",
+    "name": "TimeOut",
     "version": "1.0",
     "description": "Creates reminders to take breaks while browsing.",
     "author": ["Jakob Linenberger", "Thuan Nguyen", "Cambren Williams"], 
