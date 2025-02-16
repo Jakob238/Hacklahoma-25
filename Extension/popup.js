@@ -70,23 +70,8 @@ setInterval(updateElapsedTime, 1000);
 
 // Reset the timer
 document.getElementById("resetButton").addEventListener("click", () => {
-    chrome.storage.local.get(["elapsedTime", "previousSessions"], (result) => {
-        const elapsedTime = result.elapsedTime || 0;
-        let previousSessions = result.previousSessions || [];
-        previousSessions.push(elapsedTime);
-        if (previousSessions.length > 5) {
-            previousSessions = previousSessions.slice(-5); // Keep only the last 5 sessions
-        }
-
-        chrome.storage.local.set({
-            elapsedTime: 0,
-            previousSessions: previousSessions
-        }, () => {
-            document.getElementById("elapsedTime").textContent = 0;
-            document.getElementById("feedback").textContent = "";
-            updateTable(0, previousSessions);
-        });
-
+    chrome.runtime.sendMessage({ action: "resetTimer" }, (response) => {
+        console.log(response.status);
     });
 });
 
