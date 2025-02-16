@@ -5,7 +5,7 @@ TimeOut is a browser extension that helps manage screen time by providing two ma
 - **Activity tracker**: Monitors internet usage over your last five sessions to track trends.  
 
 ## Project Installation
-1. Install the 'TechTrack.zip' file 
+1. Install the 'TimeOver.zip' file 
 2. Extract the contents into a folder on your desktop
 3. Open your browser and go to the extension settings
 4. Enable "Developer mode"
