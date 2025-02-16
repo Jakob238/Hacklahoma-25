@@ -1,18 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Break Reminder</title>
+    <title>TechTrack</title>
+
     <style>
         body {
             text-align: center;
-            font-family: Arial, sans-serif;
-            width: 250px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            width: 450px;
+            height: 500px;
             padding: 20px;
-            background-color: #f0f0f0;
+            background-image: url(https://i.ytimg.com/vi/1Pv1qFsbPL8/maxresdefault.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /*background-color: rgba(180, 255, 130, 0.8);*/
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-shadow: #0056b3;
+            font-size: 70px; /* Increased font size */
+            font-weight: bold; /* Make the font thicker */
+            margin: 0 0 10px 0; /* Adjust margin to bring it closer to the top */
+            padding-top: 5px; /* Optional: Add a little padding at the top */
+            text-shadow: 
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000; /* Border effect */
+            margin-bottom: 20px;
+
+            color: #ffffff
+
         }
         h2 {
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: 1.5em;
             margin-bottom: 10px;
         }
@@ -47,25 +73,13 @@
         .hidden {
             display: none;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
-    <button id="showBreakTimer">Break Timer</button>
-    <button id="showActivityTracker">Activity Tracker</button>
+    <h1>TechTracker</h1>
     
     <div id="breakTimer">
-        <h1>Break Reminder</h1>
-        <p>Stay healthy! Take a break regularly.</p>
+        <h2>Break Reminder</h2>
         <div id="timeLeft">No active timer</div>
         <br>
         <label for="toggle">Enable Reminders:</label>
@@ -82,8 +96,7 @@
 
     <div id="activityTracker" class="hidden">
         <h2>Activity Timer</h2>
-        <p>Elapsed Time: <span id="elapsedTime">0</span></p>
-        <p id="feedback"></p>
+        <p>Elapsed Time: <span id="elapsedTime">0</span> seconds</p>
         <button id="resetButton">Reset Timer</button>
         <br>
         <br>
@@ -91,19 +104,10 @@
         <br>
         <br>
         <button id="resumeButton">Resume Timer</button>
-        <br>
-        <table id="sessionTable">
-            <thead>
-                <tr>
-                    <th>Session</th>
-                    <th>Time (seconds)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Session rows will be added here -->
-            </tbody>
-        </table>
     </div>
+
+    <button id="showBreakTimer">Break Timer</button>
+    <button id="showActivityTracker">Activity Tracker</button>
 
     <script src="popup.js"></script>
 </body>
