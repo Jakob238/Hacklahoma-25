@@ -47,6 +47,10 @@
         .hidden {
             display: none;
         }
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -71,8 +75,9 @@
     </div>
 
     <div id="activityTracker" class="hidden">
-        <h1>Activity Timer</h1>
+        <h2>Activity Timer</h2>
         <p>Elapsed Time: <span id="elapsedTime">0</span> seconds</p>
+        <p id="feedback"></p>
         <button id="resetButton">Reset Timer</button>
         <br>
         <br>
@@ -80,8 +85,11 @@
         <br>
         <br>
         <button id="resumeButton">Resume Timer</button>
+        <br>
+        <canvas id="sessionChart"></canvas>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="popup.js"></script>
 </body>
 </html>
