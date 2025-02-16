@@ -40,6 +40,11 @@
             text-align: center;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: 1.5em;
+            text-shadow: 
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000; /* Border effect */
             margin-bottom: 10px;
         }
         p {
@@ -112,13 +117,10 @@
         <p>Elapsed Time: <span id="elapsedTime">0</span></p>
         <p id="feedback"></p>
         <button id="resetButton">Reset Timer</button>
-        <br>
-        <br>
+
         <button id="pauseButton">Pause Timer</button>
-        <br>
-        <br>
+
         <button id="resumeButton">Resume Timer</button>
-        <br>
 
         <table id="sessionTable">
             <thead>
