@@ -45,7 +45,6 @@ function updateRemainingTime() {
 document.addEventListener('DOMContentLoaded', function() {
     updateRemainingTime();
     setInterval(updateRemainingTime, 1000); // Update every second
-    initializeChart(); // Initialize the chart when the document is loaded
 });
 
 // Display elapsed time
@@ -61,8 +60,8 @@ function updateElapsedTime() {
             document.getElementById("feedback").textContent = feedback;
         }
 
-        // Update the chart
-        updateChart(elapsedTime, previousSessions);
+        // Update the table
+        updateTable(elapsedTime, previousSessions);
     });
 }
 
@@ -71,8 +70,23 @@ setInterval(updateElapsedTime, 1000);
 
 // Reset the timer
 document.getElementById("resetButton").addEventListener("click", () => {
-    chrome.runtime.sendMessage({ action: "resetTimer" }, (response) => {
-        console.log(response.status);
+    chrome.storage.local.get(["elapsedTime", "previousSessions"], (result) => {
+        const elapsedTime = result.elapsedTime || 0;
+        let previousSessions = result.previousSessions || [];
+        previousSessions.push(elapsedTime);
+        if (previousSessions.length > 5) {
+            previousSessions = previousSessions.slice(-5); // Keep only the last 5 sessions
+        }
+
+        chrome.storage.local.set({
+            elapsedTime: 0,
+            previousSessions: previousSessions
+        }, () => {
+            document.getElementById("elapsedTime").textContent = 0;
+            document.getElementById("feedback").textContent = "";
+            updateTable(0, previousSessions);
+        });
+
     });
 });
 
@@ -136,4 +150,24 @@ function updateChart(currentSession, previousSessions) {
     sessionChart.data.labels = labels;
     sessionChart.data.datasets[0].data = data;
     sessionChart.update();
+}
+
+// Update the table with new data
+function updateTable(currentSession, previousSessions) {
+    const tbody = document.getElementById('sessionTable').getElementsByTagName('tbody')[0];
+    tbody.innerHTML = ''; // Clear existing rows
+
+    previousSessions.forEach((session, index) => {
+        const row = tbody.insertRow();
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        cell1.textContent = `Session ${index + 1}`;
+        cell2.textContent = session;
+    });
+
+    const currentRow = tbody.insertRow();
+    const currentCell1 = currentRow.insertCell(0);
+    const currentCell2 = currentRow.insertCell(1);
+    currentCell1.textContent = 'Current Session';
+    currentCell2.textContent = currentSession;
 }
