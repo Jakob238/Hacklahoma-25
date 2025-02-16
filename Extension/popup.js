@@ -159,12 +159,12 @@ function updateTable(currentSession, previousSessions) {
         const cell1 = row.insertCell(0);
         const cell2 = row.insertCell(1);
         cell1.textContent = `Session ${index + 1}`;
-        cell2.textContent = session;
+        cell2.textContent = formatTimeFromSeconds(session);
     });
 
     const currentRow = tbody.insertRow();
     const currentCell1 = currentRow.insertCell(0);
     const currentCell2 = currentRow.insertCell(1);
     currentCell1.textContent = 'Current Session';
-    currentCell2.textContent = currentSession;
+    currentCell2.textContent = formatTimeFromSeconds(currentSession);
 }
