@@ -67,17 +67,30 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
         button:hover {
             background-color: #0056b3;
         }
         .hidden {
             display: none;
         }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <h1>TechTracker</h1>
     
+    <button id="showBreakTimer">Break Timer</button>
+    <button id="showActivityTracker">Activity Tracker</button>
+
     <div id="breakTimer">
         <h2>Break Reminder</h2>
         <div id="timeLeft">No active timer</div>
@@ -96,7 +109,8 @@
 
     <div id="activityTracker" class="hidden">
         <h2>Activity Timer</h2>
-        <p>Elapsed Time: <span id="elapsedTime">0</span> seconds</p>
+        <p>Elapsed Time: <span id="elapsedTime">0</span></p>
+        <p id="feedback"></p>
         <button id="resetButton">Reset Timer</button>
         <br>
         <br>
@@ -104,10 +118,20 @@
         <br>
         <br>
         <button id="resumeButton">Resume Timer</button>
-    </div>
+        <br>
 
-    <button id="showBreakTimer">Break Timer</button>
-    <button id="showActivityTracker">Activity Tracker</button>
+        <table id="sessionTable">
+            <thead>
+                <tr>
+                    <th>Session</th>
+                    <th>Time (seconds)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Session rows will be added here -->
+            </tbody>
+        </table>
+    </div>
 
     <script src="popup.js"></script>
 </body>
