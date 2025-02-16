@@ -47,9 +47,15 @@
         .hidden {
             display: none;
         }
-        canvas {
-            max-width: 100%;
-            height: auto;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
         }
     </style>
 </head>
@@ -86,10 +92,19 @@
         <br>
         <button id="resumeButton">Resume Timer</button>
         <br>
-        <canvas id="sessionChart"></canvas>
+        <table id="sessionTable">
+            <thead>
+                <tr>
+                    <th>Session</th>
+                    <th>Time (seconds)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Session rows will be added here -->
+            </tbody>
+        </table>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="popup.js"></script>
 </body>
 </html>
