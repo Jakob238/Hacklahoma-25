@@ -48,16 +48,25 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeChart(); // Initialize the chart when the document is loaded
 });
 
-// Display elapsed time
+// Stopwatch  - Display elapsed time
+function formatTimeFromSeconds(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+    return `${hours}h ${minutes}m ${remainingSeconds}s`;
+}
+
 function updateElapsedTime() {
     chrome.storage.local.get(["elapsedTime", "previousSessions"], (result) => {
         const elapsedTime = result.elapsedTime || 0;
-        document.getElementById("elapsedTime").textContent = elapsedTime;
+        document.getElementById("elapsedTime").textContent = formatTimeFromSeconds(elapsedTime);
 
         const previousSessions = result.previousSessions || [];
         if (previousSessions.length > 0) {
             const lastSession = previousSessions[previousSessions.length - 1];
-            const feedback = elapsedTime > lastSession ? "You have spent more time this session." : "You have spent less time this session.";
+            const feedback = elapsedTime > lastSession 
+                ? "You have spent more time this session." 
+                : "You have spent less time this session.";
             document.getElementById("feedback").textContent = feedback;
         }
 
